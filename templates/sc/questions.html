@@ -1,0 +1,54 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Step 2: Show thoughts in your mind.</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <p>
+                    <span>Hi, {{ citizen_name }} !</span>
+                    <br>
+                    <em>Please choose <strong>like</strong> or <strong>dislike</strong> for each tweet.</em>
+                </p>
+            </div>
+            <form class="form-horizontal row" role="form" action="result" method="post">
+                {% csrf_token %}
+                {% for tweet in tweets %}
+                <div class="form-group col-sm-12 tweets-question">
+                    <input type="hidden" name="citizen_id" value="{{ citizen_id }}">
+                    <div class="row">
+                        <label for="gender" class="col-sm-12">
+                            <span>Tweet {{ forloop.counter }} : </span>
+                            <span>{{ tweet.content }}</span>
+                            <input type="hidden" name="tweet_id_{{ forloop.counter }}" value="{{ tweet.id }}">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 like-dislike">
+                            <label class="radio-inline">
+                              <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="1" checked><span>Like</span>
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="-1"><span>Dislike</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-send"></span><span><strong>    Find Suggestion </strong></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

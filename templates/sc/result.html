@@ -1,0 +1,35 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 | Result {% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Result: Here is the suggestion for you:</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row results">
+                <dl>
+                    <dt><span>What you chosen indicates that </span></dt>
+                    <dd>You may want to support <strong><em> {{ result }} </em></strong></dd>
+
+                    <dt><span>Specific Result</span></dt>
+                    <dd>
+                        <ul>
+                            <li>Points to Hillary: {{ res_hillary }}</li>
+                            <li>Points to Trump: {{ res_trump }}</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/">Home</a>
+        </div>
+    </div>
+{% endblock %}

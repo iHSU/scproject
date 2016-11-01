@@ -1,0 +1,67 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 {% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Step 1: Briefly introduce yourself.</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" role="form" action="start" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="citizen_name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="citizen_name" name="citizen_name" placeholder="Your nick name here">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gender" class="col-sm-2 control-label">Gender</label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                          <input type="radio" name="gender" id="gender_male" value="1" checked><span>Male</span>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="gender" id="gender_female" value="2"><span>Female</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="age_level" class="col-sm-2 control-label">Age</label>
+                    <div class="col-sm-6">
+                        <select name="age_level" id="age" class="form-control">
+                            <option value="1">16 ~ 20</option>
+                            <option value="2">21 ~ 30</option>
+                            <option value="3">31 ~ 40</option>
+                            <option value="4">41 ~ 50</option>
+                            <option value="5">51 ~ 60</option>
+                            <option value="6">61 ~ 70</option>
+                            <option value="7">71 +</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="occupation" class="col-sm-2 control-label">Occupation</label>
+                    <div class="col-sm-6">
+                        <select name="occupation" id="occupation" class="form-control">
+                            <option value="ms_student">M.S. Student</option>
+                            <option value="faculty">Faculty</option>
+                            <option value="staff">Staff</option>
+                            <option value="phd_student">PhD. Student</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-send"></span><span><strong>    START</strong></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

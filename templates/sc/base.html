@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Social Computing | {% block head-title %}{% endblock %}</title>
+{#    <link rel="shortcut icon" type="image/png" href="{% static 'sc/css/favicon.ico' %}"/>#}
+    <link href="{% static 'sc/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'sc/css/style.css'%}" rel="stylesheet">
+    <script src="{% static 'sc/js/jquery-1.11.2.min.js'%}" type="text/javascript"></script>
+    <script src="{% static 'sc/js/bootstrap.min.js'%}" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+        <script src='http://html5shiv.googlecode.com/svn/trunk/html5.js'></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#iblog-irx-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="navbar-brand">
+                            <span class="glyphicon glyphicon-th-large"></span>
+                            <span>Social Computing Project | 2Vote4 </span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row main">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>to Vote for </h2>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11">
+                                <p><em><strong>version alpha (our initial version)</strong></em></p>
+                                <p><em>Just give us pieces of thoughts, let's help you decide for whom to vote</em></p>
+                                <p><em>Only two steps, find our suggestion.</em></p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row footer">
+            <div class="col-md-12">
+                <p class="text-left">
+                    <span>&copy 2016 Social Computing, </span>
+                    <a href="http://www.sis.pitt.edu" target="_blank">School of Information Science</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

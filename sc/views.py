@@ -30,7 +30,7 @@ def start(request):
     # tweets_from_trump = Tweet.objects.all().filter(who=2)
     tweets = Tweet.objects.all()
     # tweets_size = len(tweets)
-    tweets_random = random.sample(tweets, 5)
+    tweets_random = random.sample(tweets, 11)
 
     context = {'citizen_name': citizen_name,
                'citizen_id': citizen_id,
@@ -47,7 +47,7 @@ def result(request):
     res_trump = 0
     citizen_id = request.POST['citizen_id']
     citizen = Citizen.objects.get(id=int(citizen_id))
-    for i in range(1, 6):
+    for i in range(1, 12):
         tweet_id = request.POST['tweet_id_' + str(i)]
         tweet_res = request.POST['tweet_' + str(i)]
         tweet_res_int = int(tweet_res)
@@ -75,6 +75,16 @@ def result(request):
 
     context = {'result': res,
                'res_hillary': res_hillary, 'res_trump': res_trump,
+               'citizen_id': citizen_id,
                'res_hillary_like': count_hillary_like, 'res_hillary_dislike': count_hillary_dislike,
                'res_trump_like': count_trump_like, 'res_trump_dislike': count_trump_dislike}
     return render(request, 'sc/result.html', context)
+
+
+def feedback(request):
+    citizen_id = request.POST['citizen_id']
+    citizen = Citizen.objects.get(id=int(citizen_id))
+    citizen.feedback = request.POST['feedback']
+    citizen.save()
+    context = {'msg': 'Leave feedback successfully.'}
+    return render(request, 'sc/index.html', context)

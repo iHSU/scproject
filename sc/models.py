@@ -10,6 +10,7 @@ class Citizen(models.Model):
     age_level = models.IntegerField()
     gender = models.IntegerField()
     occupation = models.CharField(max_length=150)
+    feedback = models.TextField(verbose_name='Feedback', blank=True)
     create_time = models.DateTimeField(auto_now=True, verbose_name='Create Time')
 
 

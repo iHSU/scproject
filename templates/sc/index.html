@@ -11,6 +11,11 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <span class="text-danger">{{ msg }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <form class="form-horizontal" role="form" action="start" method="post">
                 {% csrf_token %}
                 <div class="form-group">
@@ -52,6 +57,8 @@
                             <option value="faculty">Faculty</option>
                             <option value="staff">Staff</option>
                             <option value="phd_student">PhD. Student</option>
+                            <option value="graduated_employed">Graduated-Employed</option>
+                            <option value="graduated_looking">Graduated-Looking for Job</option>
                         </select>
                     </div>
                 </div>

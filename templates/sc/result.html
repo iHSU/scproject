@@ -29,7 +29,29 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a href="/">Home</a>
+            <form class="form-horizontal row" role="form" action="feedback" method="post">
+                {% csrf_token %}
+                <div class="form-group col-sm-12 tweets-question">
+                    <input type="hidden" name="citizen_id" value="{{ citizen_id }}">
+                    <div class="row">
+                        <label for="feedback" class="col-sm-12">
+                            <p>You can leave comments here</p>
+                            <textarea class="form-control" rows="4" name="feedback"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-send"></span><span><strong>    Leave Feedback </strong></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            Back to <a href="/">Home</a>
         </div>
     </div>
 {% endblock %}

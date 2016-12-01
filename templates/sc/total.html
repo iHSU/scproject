@@ -1,0 +1,74 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 | Statistics {% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Total Result</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row results">
+                <table class="table" id="total_result">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Tweet</th>
+                            <th>Attitude</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in total %}
+                        <tr>
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.citizen.name }}</td>
+                            {% if result.tweet.type == 1 %}
+                                {% if result.tweet.who == 1 %}
+                                    <td>[Hillary][Original]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 2 %}
+                                    <td>[Trump][Original]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 3 %}
+                                    <td>[Jill][Original]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 4 %}
+                                    <td>[Gray][Original]  {{ result.tweet.content }}</td>
+                                {% endif %}
+                            {% elif result.tweet.type == 2 %}
+                                {% if result.tweet.who == 1 %}
+                                    <td>[Hillary][Fake]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 2 %}
+                                    <td>[Trump][Fake]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 3 %}
+                                    <td>[Jill][Fake]  {{ result.tweet.content }}</td>
+                                {% elif result.tweet.who == 4 %}
+                                    <td>[Gray][Fake]  {{ result.tweet.content }}</td>
+                                {% endif %}
+                            {% endif %}
+                            {% if result.attitude == 1 %}
+                                <td>like</td>
+                            {% else %}
+                                <td>dislike</td>
+                            {% endif %}
+                            <td>{{ result.format_time }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            Back to <a href="/">Home</a>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf8">
+        $(document).ready(function() {
+            $('#total_result').DataTable();
+        });
+    </script>
+{% endblock %}

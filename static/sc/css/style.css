@@ -1,0 +1,11 @@
+textarea {outline: none;border: none;}
+a {cursor: pointer;}
+a:hover, a:focus {text-decoration:none;}
+
+.footer {background-color: #f9f9f9; bottom: 0px; text-align: center;padding: 10px 0; margin-top: 10px; border-top: 1px solid #ededed;position: fixed;width: 100%;}
+
+.main {margin-bottom: 40px; min-height: 500px;}
+
+.like-dislike {margin-left: 65px;}
+
+.results {margin-left: 70px;}

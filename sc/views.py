@@ -6,7 +6,7 @@ from .models import Citizen
 from .models import Result
 
 import random
-
+import operator
 
 def index(request):
     context = {}
@@ -43,8 +43,17 @@ def result(request):
     count_hillary_dislike = 0
     count_trump_like = 0
     count_trump_dislike = 0
-    res_hillary = 0
-    res_trump = 0
+    count_jill_like = 0
+    count_jill_dislike = 0
+    count_gary_like = 0
+    count_gary_dislike = 0
+
+    res_candidate = {}
+    res_candidate['hillary'] = 0
+    res_candidate['trump'] = 0
+    res_candidate['jill'] = 0
+    res_candidate['gary'] = 0
+
     citizen_id = request.POST['citizen_id']
     citizen = Citizen.objects.get(id=int(citizen_id))
     for i in range(1, 12):
@@ -60,21 +69,31 @@ def result(request):
                 count_hillary_like = count_hillary_like + 1
             elif tweet_res_int == -1:
                 count_hillary_dislike = count_hillary_dislike + 1
-            res_hillary = res_hillary + tweet_res_int
+            res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int
         elif who == 2:           # trump
             if tweet_res_int == 1:
                 count_trump_like = count_trump_like + 1
             elif tweet_res_int == -1:
                 count_trump_dislike = count_trump_dislike + 1
-            res_trump = res_trump + tweet_res_int
-    res = 'No result'
-    if res_hillary > res_trump:
-        res = 'Hillary'
-    elif res_trump > res_hillary:
-        res = 'Trump'
+            res_candidate['trump'] = res_candidate['trump'] + tweet_res_int
+        elif who == 3:
+            if tweet_res_int == 1:
+                count_jill_like = count_jill_like + 1
+            elif tweet_res_int == -1:
+                count_jill_dislike = count_jill_dislike + 1
+            res_candidate['jill'] = res_candidate['jill'] + tweet_res_int
+        elif who == 4:
+            if tweet_res_int == 1:
+                count_gary_like = count_gary_like + 1
+            elif tweet_res_int == -1:
+                count_gary_dislike = count_gary_dislike + 1
+            res_candidate['gary'] = res_candidate['gary'] + tweet_res_int
+
+    res = max(res_candidate, key=res_candidate.get)
+
 
     context = {'result': res,
-               'res_hillary': res_hillary, 'res_trump': res_trump,
+               'res_hillary': res_candidate['hillary'], 'res_trump': res_candidate['trump'], 'res_jill': res_candidate['jill'], 'res_gary':res_candidate['gary'],
                'citizen_id': citizen_id,
                'res_hillary_like': count_hillary_like, 'res_hillary_dislike': count_hillary_dislike,
                'res_trump_like': count_trump_like, 'res_trump_dislike': count_trump_dislike}

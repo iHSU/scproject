@@ -61,7 +61,7 @@ def result(request):
             elif tweet_res_int == -1:
                 count_hillary_dislike = count_hillary_dislike + 1
             res_hillary = res_hillary + tweet_res_int
-        else:           # trump
+        elif who == 2:           # trump
             if tweet_res_int == 1:
                 count_trump_like = count_trump_like + 1
             elif tweet_res_int == -1:
@@ -88,3 +88,9 @@ def feedback(request):
     citizen.save()
     context = {'msg': 'Leave feedback successfully.'}
     return render(request, 'sc/index.html', context)
+
+
+def total_result(request):
+    results = Result.objects.all()
+    context = {'total': results}
+    return render(request, 'sc/total.html', context)

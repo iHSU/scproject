@@ -159,30 +159,33 @@ def users(request):
             tweet_type = item.tweet.type
             tweet_weight = item.tweet.weight
             tweet_who = item.tweet.who
+            type = 1.0  # default type of tweet, original
+            if tweet_type == 2:  # fake tweet
+                type = -1.5
             if tweet_who == 1:  # hillary
                 if tweet_res_int == 1:
                     count_hillary_like = count_hillary_like + 1
                 elif tweet_res_int == -1:
                     count_hillary_dislike = count_hillary_dislike + 1
-                res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int * tweet_weight * tweet_type
+                res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int * tweet_weight * type
             elif tweet_who == 2:  # trump
                 if tweet_res_int == 1:
                     count_trump_like = count_trump_like + 1
                 elif tweet_res_int == -1:
                     count_trump_dislike = count_trump_dislike + 1
-                res_candidate['trump'] = res_candidate['trump'] + tweet_res_int * tweet_weight * tweet_type
+                res_candidate['trump'] = res_candidate['trump'] + tweet_res_int * tweet_weight * type
             elif tweet_who == 3:
                 if tweet_res_int == 1:
                     count_jill_like = count_jill_like + 1
                 elif tweet_res_int == -1:
                     count_jill_dislike = count_jill_dislike + 1
-                res_candidate['jill'] = res_candidate['jill'] + tweet_res_int * tweet_weight * tweet_type
+                res_candidate['jill'] = res_candidate['jill'] + tweet_res_int * tweet_weight * type
             elif tweet_who == 4:
                 if tweet_res_int == 1:
                     count_gary_like = count_gary_like + 1
                 elif tweet_res_int == -1:
                     count_gary_dislike = count_gary_dislike + 1
-                res_candidate['gary'] = res_candidate['gary'] + tweet_res_int * tweet_weight * tweet_type
+                res_candidate['gary'] = res_candidate['gary'] + tweet_res_int * tweet_weight * type
         res = max(res_candidate, key=res_candidate.get)
         users_res[int(user.id)] = res
 

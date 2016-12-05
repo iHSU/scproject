@@ -1,0 +1,88 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 | Statistics {% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Total Result</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row results">
+                <table class="table" id="total_result">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age Level</th>
+                            <th>Gender</th>
+                            <th>Occupation</th>
+                            <th>Feedback</th>
+                            <th>Result</th>
+                            <th>Specification</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>
+                                {% if user.age_level == 1 %}
+                                    <span>16 - 20</span>
+                                {% elif user.age_level == 2 %}
+                                    <span>21 - 30</span>
+                                {% elif user.age_level == 3 %}
+                                    <span>31 - 40</span>
+                                {% elif user.age_level == 4 %}
+                                    <span>41 - 50</span>
+                                {% elif user.age_level == 5 %}
+                                    <span>51 - 60</span>
+                                {% elif user.age_level == 6 %}
+                                    <span>61 - 70</span>
+                                {% elif user.age_level == 7 %}
+                                    <span>70 + </span>
+                                {% else %}
+                                    <span>None</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if user.gender == 1 %}
+                                <span>M</span>
+                                {% else %}
+                                <span>F</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ user.occupation }}</td>
+                            <td>{{ user.feedback }}</td>
+                            <td>
+                                {% for key, value in users_res.items %}
+                                    {% if key == user.id %}
+                                        {{ value }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td><a href="/specific?userid={{ user.id }}">click</a></td>
+                            <td>{{ user.format_time }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/manage" class="btn btn-default" role="button">Back to Manage</a>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf8">
+        $(document).ready(function() {
+            $('#total_result').DataTable();
+        });
+    </script>
+{% endblock %}

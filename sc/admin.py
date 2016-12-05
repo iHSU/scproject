@@ -8,7 +8,7 @@ from .models import Result
 
 class TweetAdmin(admin.ModelAdmin):
     fields = ['content', 'type', 'who']
-    list_display = ('id', 'content', 'type', 'who')
+    list_display = ('id', 'content', 'type', 'who', 'weight')
     search_fields = ['content']
 
 

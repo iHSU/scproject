@@ -7,5 +7,8 @@ urlpatterns = [
     url(r'^start$', views.start, name='start'),
     url(r'^result$', views.result, name='result'),
     url(r'^feedback$', views.feedback, name='feedback'),
-    url(r'^statistics', views.total_result, name='total_result'),
+    url(r'^total$', views.total_result, name='total_result'),
+    url(r'^manage$', views.manage, name='manage'),
+    url(r'users$', views.users, name='users'),
+    url(r'specific', views.specific_user_result, name='specific_user_result'),
 ]

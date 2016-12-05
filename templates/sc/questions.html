@@ -25,19 +25,25 @@
                     <input type="hidden" name="citizen_id" value="{{ citizen_id }}">
                     <div class="row">
                         <label for="gender" class="col-sm-12">
-                            <span>Tweet {{ forloop.counter }} : </span>
-                            <span>{{ tweet.content }}</span>
                             <input type="hidden" name="tweet_id_{{ forloop.counter }}" value="{{ tweet.id }}">
+                            <dl class="dl-horizontal">
+                                <dt><span>Tweet {{ forloop.counter }} : </span></dt>
+                                <dd><span>{{ tweet.content }}</span></dd>
+
+                                <dt></dt>
+                                <dd>
+                                    <label class="radio-inline">
+                                      <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="1" checked><span>Like</span>
+                                    </label>
+                                    <label class="radio-inline">
+                                      <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="-1"><span>Dislike</span>
+                                    </label>
+                                </dd>
+                            </dl>
                         </label>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 like-dislike">
-                            <label class="radio-inline">
-                              <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="1" checked><span>Like</span>
-                            </label>
-                            <label class="radio-inline">
-                              <input type="radio" name="tweet_{{ forloop.counter }}" id="tweet_{{ forloop.counter }}" value="-1"><span>Dislike</span>
-                            </label>
                         </div>
                     </div>
                 </div>

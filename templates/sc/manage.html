@@ -1,0 +1,28 @@
+{% extends 'sc/base.html' %}
+
+{% block head-title %} 2Vote4 | Manage {% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span><strong>Manage</strong></span>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/total"><span class="glyphicon glyphicon-th"></span><span>  Total Result</a>
+            <br>
+            <a href="/users"><span class="glyphicon glyphicon-th"></span><span>  Users</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            <br>
+            <a href="/" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-home"></span><span>  <span>Back to Home</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -6,7 +6,6 @@ from .models import Citizen
 from .models import Result
 
 import random
-import operator
 
 def index(request):
     context = {}
@@ -64,30 +63,36 @@ def result(request):
         record = Result(citizen=citizen, tweet=tweet, attitude=tweet_res_int)
         record.save()
         who = tweet.who
+
+        type = 1.0 # default type of tweet, original
+        if tweet.type == 2:  # fake tweet
+            type = -1.5
+        weight = tweet.weight
+
         if who == 1:    # hillary
             if tweet_res_int == 1:
                 count_hillary_like = count_hillary_like + 1
             elif tweet_res_int == -1:
                 count_hillary_dislike = count_hillary_dislike + 1
-            res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int
+            res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int * weight * type
         elif who == 2:           # trump
             if tweet_res_int == 1:
                 count_trump_like = count_trump_like + 1
             elif tweet_res_int == -1:
                 count_trump_dislike = count_trump_dislike + 1
-            res_candidate['trump'] = res_candidate['trump'] + tweet_res_int
+            res_candidate['trump'] = res_candidate['trump'] + tweet_res_int * weight * type
         elif who == 3:
             if tweet_res_int == 1:
                 count_jill_like = count_jill_like + 1
             elif tweet_res_int == -1:
                 count_jill_dislike = count_jill_dislike + 1
-            res_candidate['jill'] = res_candidate['jill'] + tweet_res_int
+            res_candidate['jill'] = res_candidate['jill'] + tweet_res_int * weight * type
         elif who == 4:
             if tweet_res_int == 1:
                 count_gary_like = count_gary_like + 1
             elif tweet_res_int == -1:
                 count_gary_dislike = count_gary_dislike + 1
-            res_candidate['gary'] = res_candidate['gary'] + tweet_res_int
+            res_candidate['gary'] = res_candidate['gary'] + tweet_res_int * weight * type
 
     res = max(res_candidate, key=res_candidate.get)
 
@@ -109,7 +114,78 @@ def feedback(request):
     return render(request, 'sc/index.html', context)
 
 
+def manage(request):
+    context = {}
+    return render(request, 'sc/manage.html', context)
+
+
 def total_result(request):
     results = Result.objects.all()
     context = {'total': results}
     return render(request, 'sc/total.html', context)
+
+
+def specific_user_result(request):
+    citizen_id = request.GET['userid']
+    print citizen_id
+    results = Result.objects.filter(citizen_id=citizen_id)
+    print results
+    context = {'results': results}
+    print context
+    return render(request, 'sc/user_result.html', context)
+
+
+
+def users(request):
+    citizens = Citizen.objects.all()
+    users_res = {}
+    for user in citizens:
+        results = Result.objects.filter(citizen_id=user.id)
+        res_candidate = {}
+        res_candidate['hillary'] = 0
+        res_candidate['trump'] = 0
+        res_candidate['jill'] = 0
+        res_candidate['gary'] = 0
+        count_hillary_like = 0
+        count_hillary_dislike = 0
+        count_trump_like = 0
+        count_trump_dislike = 0
+        count_jill_like = 0
+        count_jill_dislike = 0
+        count_gary_like = 0
+        count_gary_dislike = 0
+        for item in results:
+            tweet_res_int = item.attitude
+            tweet_type = item.tweet.type
+            tweet_weight = item.tweet.weight
+            tweet_who = item.tweet.who
+            if tweet_who == 1:  # hillary
+                if tweet_res_int == 1:
+                    count_hillary_like = count_hillary_like + 1
+                elif tweet_res_int == -1:
+                    count_hillary_dislike = count_hillary_dislike + 1
+                res_candidate['hillary'] = res_candidate['hillary'] + tweet_res_int * tweet_weight * tweet_type
+            elif tweet_who == 2:  # trump
+                if tweet_res_int == 1:
+                    count_trump_like = count_trump_like + 1
+                elif tweet_res_int == -1:
+                    count_trump_dislike = count_trump_dislike + 1
+                res_candidate['trump'] = res_candidate['trump'] + tweet_res_int * tweet_weight * tweet_type
+            elif tweet_who == 3:
+                if tweet_res_int == 1:
+                    count_jill_like = count_jill_like + 1
+                elif tweet_res_int == -1:
+                    count_jill_dislike = count_jill_dislike + 1
+                res_candidate['jill'] = res_candidate['jill'] + tweet_res_int * tweet_weight * tweet_type
+            elif tweet_who == 4:
+                if tweet_res_int == 1:
+                    count_gary_like = count_gary_like + 1
+                elif tweet_res_int == -1:
+                    count_gary_dislike = count_gary_dislike + 1
+                res_candidate['gary'] = res_candidate['gary'] + tweet_res_int * tweet_weight * tweet_type
+        res = max(res_candidate, key=res_candidate.get)
+        users_res[int(user.id)] = res
+
+    context = {'users': citizens, 'users_res': users_res}
+    # print context
+    return render(request, 'sc/users.html', context)

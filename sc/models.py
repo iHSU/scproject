@@ -16,11 +16,16 @@ class Citizen(models.Model):
     def __str__(self):
         return self.name
 
+    def format_time(self):
+        # return self.create_time.strftime("%b-%d-%y %H:%M:%S")
+        return self.create_time.strftime("%d/%m/%Y")
+
 
 class Tweet(models.Model):
     content = models.CharField(max_length=200, verbose_name='Tweet Content')
     type = models.IntegerField(verbose_name='Type (1-Original, 2-Fake)') # 1, original 2, fake
     who = models.IntegerField(verbose_name='From (1-Hillary, 2-Trump, 3-Jill, 4-Gary)') # 1 Hillary 2 Trump
+    weight = models.IntegerField(default=0, verbose_name='Weight')
 
     def __str__(self):
         return self.content.encode('utf-8').strip()

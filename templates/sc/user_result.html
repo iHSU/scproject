@@ -1,6 +1,6 @@
 {% extends 'sc/base.html' %}
 
-{% block head-title %} 2Vote4 | Statistics {% endblock %}
+{% block head-title %} 2Vote4 | User Result {% endblock %}
 
 {% block content %}
     <div>
@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for result in total %}
+                    {% for result in results %}
                         <tr>
                             <td>{{ result.id }}</td>
                             <td>{{ result.citizen.name }}</td>
